@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="./styles.css" />
     <title>Weather_Forecast</title>
 </head>
-<body>
-    
-
-<header class="hero">
-    <h1 class="title"> Weather Dashboard </h1>
+<body class="flex-column min-100-vh">
+    <header class="hero">
+      <h1 class="app-title"> Weather Dashboard</h1>
+    </header>
+  
   </header>
 
     <main class="flex-row center">
@@ -30,15 +30,7 @@
               
               
              
-              <div class="card">
-                
-                <div id="location-buttons" class="card-body">
-              <button data-location="Dallas" class="btn">Dallas</button>
-              <button data-location="Houston" class="btn">Houston</button>
-              <button data-location="Watertown" class="btn">Watertown</button>
-                </div>
-          </div>
-      </div>
+              
         <div class="col-12 col-md-8">
             <h2 class="subtitle">Showing Weather For: <span id="city-search"></span></h2>
             <div id="city-container" class="list-city"></div>

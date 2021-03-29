@@ -1,23 +1,16 @@
-// fetch("https://api.openweathermap.org/data/2.5/forecast?q="+"Dallas"+"&appid="+"bb0b09d5ca94947c226b173fba818e45")
-// .then(response => response.json())
-// .then(function(data){
-    
-
-// })
-
-var cityFormEl = document.querySelector("#city-form");
-var locationButtonsEl = document.querySelector("#location-buttons");
-var cityInputEl = document.querySelector("#cityname");
-var cityContainerEl = document.querySelector("#city-container");
-var locationSearchWeather= document.querySelector("#city-search");
+let cityFormEl = document.querySelector("#city-form");
+let cityInputEl = document.querySelector("#cityname");
+let cityContainerEl = document.querySelector("#city-container");
+let locationSearchWeather= document.querySelector("#city-search");
+let apiKey = ("8d2ba0552b4bcd1be2f143d448859462")
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
-  var cityname = cityInputEl.value.trim();
+  var city = cityInputEl.value.trim();
 
-  if (cityname) {
-    getCityLocation(cityname);
+  if (city) {
+    getCityLocation(city);
 
     cityContainerEl.textContent = '';
     cityInputEl.value = '';
@@ -26,46 +19,34 @@ var formSubmitHandler = function (event) {
   }
 };
 
-var buttonClickHandler = function (event) {
-  var Dallas = event.target.getAttribute("data-location");
+async function getCityLocation(city){
+    var apiUrl = ("https://api.openweathermap.org/data/2.5/forecast?q="+city+"&appid="+ apiKey)
 
-  if (Dallas) {
-    getCityLocation(Dallas);
+    fetch(apiUrl)
+    .then(function(response) {
+        return response .json();
 
-    cityContainerEl.textContent = '';
-  }
-};
+    })
+    .then (function (data){
+        console.log(data)
+        displaycity(data, city);
+    });
+}
 
-var getCityLocation = function (city) {
-  var apiUrl = ("https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid="+"bb0b09d5ca94947c226b173fba818e45")
+async function displaycity (lat, lon){
+    var apiUrl = ('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + 'apiKey');
 
   fetch(apiUrl)
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          displayWeather(data, city);
-        });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect to OpenWeather');
-    });
-};
-
-var displayWeather = function (Dallas) {
-  var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q="+ Dallas + "&appid="+"bb0b09d5ca94947c226b173fba818e45";
-
-  fetch(apiUrl).then(function (response) {
+  .then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        displaycity(data.items, Dallas);
+        displaycity(data.items, );
       });
     } else {
       alert('Error: ' + response.statusText);
     }
   });
+  
 };
 
 var displaycity = function (cities, searchCities) {
@@ -77,14 +58,14 @@ var displaycity = function (cities, searchCities) {
   locationSearchWeather.textContent = searchCities;
 
   for (var i = 0; i < cities.length; i++) {
-    var cityName = cities[i].owner.login + '/' + cities[i].name;
+    var weatherData = cities[i].owner.login + '/' + cities[i].name;
 
-    var locationEl = document.createElement('a');
-    locationEl.classList = 'list-item flex-row justify-space-between align-center';
-    locEl.setAttribute('href', './single-repo.html?repo=' + cityName);
+    var cityEl = document.createElement('a');
+    cityEl.classList = 'list-item flex-row justify-space-between align-center';
+    cityEl.setAttribute('href', './single-repo.html?repo=' + weatherData);
 
     var titleEl = document.createElement('span');
-    titleEl.textContent = repoName;
+    titleEl.textContent = weatherData;
 
     repoEl.appendChild(titleEl);
 
@@ -105,4 +86,4 @@ var displaycity = function (cities, searchCities) {
 };
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
-locationButtonsEl.addEventListener('click', buttonClickHandler);
+
