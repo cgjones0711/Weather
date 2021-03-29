@@ -1,15 +1,15 @@
-fetch("https://api.openweathermap.org/data/2.5/forecast?q="+"Dallas"+"&appid="+"bb0b09d5ca94947c226b173fba818e45")
-.then(response => response.json())
-.then(function(data){
-    console.log(data);
+// fetch("https://api.openweathermap.org/data/2.5/forecast?q="+"Dallas"+"&appid="+"bb0b09d5ca94947c226b173fba818e45")
+// .then(response => response.json())
+// .then(function(data){
+    
 
-})
+// })
 
 var cityFormEl = document.querySelector("#city-form");
 var locationButtonsEl = document.querySelector("#location-buttons");
 var cityInputEl = document.querySelector("#cityname");
 var cityContainerEl = document.querySelector("#city-container");
-var citySearchTerm = document.querySelector("#city-search");
+var locationSearchWeather= document.querySelector("#city-search");
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -17,7 +17,7 @@ var formSubmitHandler = function (event) {
   var cityname = cityInputEl.value.trim();
 
   if (cityname) {
-    getUserRepos(cityname);
+    getCityLocation(cityname);
 
     cityContainerEl.textContent = '';
     cityInputEl.value = '';
@@ -27,23 +27,23 @@ var formSubmitHandler = function (event) {
 };
 
 var buttonClickHandler = function (event) {
-  var city = event.target.getAttribute("data-location");
+  var Dallas = event.target.getAttribute("data-location");
 
-  if (city) {
-    getFeaturedcity(city);
+  if (Dallas) {
+    getCityLocation(Dallas);
 
     cityContainerEl.textContent = '';
   }
 };
 
-var getCityLocation = function () {
-  var apiUrl = ();
+var getCityLocation = function (city) {
+  var apiUrl = ("https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid="+"bb0b09d5ca94947c226b173fba818e45")
 
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          displayRepos(data, city);
+          displayWeather(data, city);
         });
       } else {
         alert('Error: ' + response.statusText);
@@ -54,13 +54,13 @@ var getCityLocation = function () {
     });
 };
 
-var getFeaturedCity = function (language) {
-  var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q="+"Dallas"+"&appid="+"bb0b09d5ca94947c226b173fba818e45";
+var displayWeather = function (Dallas) {
+  var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q="+ Dallas + "&appid="+"bb0b09d5ca94947c226b173fba818e45";
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        displaycity(data.items, language);
+        displaycity(data.items, Dallas);
       });
     } else {
       alert('Error: ' + response.statusText);
@@ -68,20 +68,20 @@ var getFeaturedCity = function (language) {
   });
 };
 
-var displaycity = function (cities, searchTerm) {
+var displaycity = function (cities, searchCities) {
   if (cities.length === 0) {
     cityContainerEl.textContent = 'No City found.';
     return;
   }
 
-  repoSearchTerm.textContent = searchTerm;
+  locationSearchWeather.textContent = searchCities;
 
   for (var i = 0; i < cities.length; i++) {
     var cityName = cities[i].owner.login + '/' + cities[i].name;
 
-    var repoEl = document.createElement('a');
-    repoEl.classList = 'list-item flex-row justify-space-between align-center';
-    repoEl.setAttribute('href', './single-repo.html?repo=' + cityName);
+    var locationEl = document.createElement('a');
+    locationEl.classList = 'list-item flex-row justify-space-between align-center';
+    locEl.setAttribute('href', './single-repo.html?repo=' + cityName);
 
     var titleEl = document.createElement('span');
     titleEl.textContent = repoName;
