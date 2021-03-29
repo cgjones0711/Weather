@@ -42,7 +42,7 @@ async function displaycity (lat, lon, cityName){
     if (response.ok) {
       response.json()
       .then(function (data) {
-       noCity(data.daily, cityName)
+       noCity(data.daily, cityName, )
      
     });
     } else {
@@ -51,7 +51,7 @@ async function displaycity (lat, lon, cityName){
 });
 }
 
-    let noCity = function (city, cityName, dateString) {
+    let noCity = function (city, cityName) {
         if (city.length === 0) {
           cityContainerEl.textContent = 'No City found.';
           return;
@@ -60,7 +60,7 @@ async function displaycity (lat, lon, cityName){
 
         for (let i = 0; i < city.length; i++) {
             const weatherStatus = city[i];
-            console.log(weatherStatus)
+            
             let statusEl = document.createElement('a');
             statusEl.classList = 'list-item flex-row justify-space-between align-center';
 
@@ -69,11 +69,14 @@ async function displaycity (lat, lon, cityName){
             let month = date.getMonth() + 1;
             let day = date.getDate();
             let dateString = month + "/" + day;
-            console.log(dateString)
+            
                 titleEL.textContent = dateString;
+                console.log()
+
+                
             cityContainerEl.appendChild(statusEl);
             statusEl.appendChild(titleEL);
-            .appendChild(dateString)
+            
         }
   
     }
