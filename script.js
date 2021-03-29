@@ -29,18 +29,20 @@ async function getCityLocation(city){
     })
     .then (function (data){
         console.log(data)
-        displaycity(data, city);
+        displaycity(data.city.coord.lat, data.city.coord.lon);
+        
+        // console.log
     });
 }
 
 async function displaycity (lat, lon){
-    var apiUrl = ('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + 'apiKey');
+    var apiUrl = ('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + apiKey);
 
   fetch(apiUrl)
   .then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        displaycity(data.items, );
+        console.log(data.daily[0].weather[0].main)
       });
     } else {
       alert('Error: ' + response.statusText);
@@ -49,41 +51,41 @@ async function displaycity (lat, lon){
   
 };
 
-var displaycity = function (cities, searchCities) {
-  if (cities.length === 0) {
-    cityContainerEl.textContent = 'No City found.';
-    return;
-  }
+// var displaycity = function (cities, searchCities) {
+//   if (cities.length === 0) {
+//     cityContainerEl.textContent = 'No City found.';
+//     return;
+//   }
 
-  locationSearchWeather.textContent = searchCities;
+//   locationSearchWeather.textContent = searchCities;
 
-  for (var i = 0; i < cities.length; i++) {
-    var weatherData = cities[i].owner.login + '/' + cities[i].name;
+//   for (var i = 0; i < cities.length; i++) {
+//     var weatherData = cities[i].owner.login + '/' + cities[i].name;
 
-    var cityEl = document.createElement('a');
-    cityEl.classList = 'list-item flex-row justify-space-between align-center';
-    cityEl.setAttribute('href', './single-repo.html?repo=' + weatherData);
+//     var cityEl = document.createElement('a');
+//     cityEl.classList = 'list-item flex-row justify-space-between align-center';
+//     cityEl.setAttribute('href', './single-repo.html?repo=' + weatherData);
 
-    var titleEl = document.createElement('span');
-    titleEl.textContent = weatherData;
+//     var titleEl = document.createElement('span');
+//     titleEl.textContent = weatherData;
 
-    repoEl.appendChild(titleEl);
+//     repoEl.appendChild(titleEl);
 
-    var statusEl = document.createElement('span');
-    statusEl.classList = 'flex-row align-center';
+//     var statusEl = document.createElement('span');
+//     statusEl.classList = 'flex-row align-center';
 
-    if (cities[i].open_issues_count > 0) {
-      statusEl.innerHTML =
-        "<i class='fas fa-times status-icon icon-danger'></i>" + cities[i].open_issues_count + ' issue(s)';
-    } else {
-      statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-    }
+//     if (cities[i].open_issues_count > 0) {
+//       statusEl.innerHTML =
+//         "<i class='fas fa-times status-icon icon-danger'></i>" + cities[i]. + ' issue(s)';
+//     } else {
+//       statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+//     }
 
-    cityEl.appendChild(statusEl);
+//     cityEl.appendChild(statusEl);
 
-    cityContainerEl.appendChild(cityEl);
-  }
-};
+//     cityContainerEl.appendChild(cityEl);
+//   }
+// };
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
 
