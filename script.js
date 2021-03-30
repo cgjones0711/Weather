@@ -43,7 +43,7 @@ async function displaycity (lat, lon, cityName){
     if (response.ok) {
       response.json()
       .then(function (data) {
-       noCity(data.daily, cityName )
+       noCity(data.daily, cityName );
        console.log (data)
     });
     } else {
@@ -60,8 +60,9 @@ async function displaycity (lat, lon, cityName){
           return;
         }
         locationSearchWeather.textContent = cityName;
+        console.log(cityName)
 
-        for (let i = 0; i < city.length; i++) {
+        for (let i = 0; i < city.length; i++){
             const weatherStatus = city[i];
             
             let statusEl = document.createElement('a');
@@ -74,28 +75,35 @@ async function displaycity (lat, lon, cityName){
             let dateString = month + "/" + day;
             titleEL.textContent = dateString;
             console.log(dateString)
+
+            let tempEl=document.createElement('span')
+            tempEl.textContent=city[i].temp.day;
+            console.log(city[i].temp.day);
+
+            let uvEl=document.createElement('span')
+            uvEl.textContent=city[i].uvi;
+            console.log(city[i].uvi);
+
+            let weatherEl=document.createElement('span')
+            weatherEl.textContent=city[i].weather[0];
+            console.log(city[i].weather[0]);
+
+            // var tempEl= $('<p class="weatherEl"/>').appendTo('#city-container');
+            // tempEl.html=city[0].temp;
+
+            // var weatherEl= $('<p class="weatherEl"/>').appendTo('#city-container');
+            // weatherEl.html=city[0].weather[0];
+
+            // var uvEl= $('<p class="uvEl"/>').appendTo('#city-container');
+            // uvEl.html=city[0].uv;
+         
+
             
 
-            let tempEl=document.createElement("span");
-            let forecast = new Forecast(weatherStatus.daily);
-           console.log(weatherStatus.daily)
-            let  degree = forecast.getTemp();
-            let uv = forecast.getUv();
-            let weather = forecast.getWeather();
-            let forString = degree + uv + weather;
-            tempEl.textContent = forString;
-            console.log (forString)
-            
-            
-
-
-
-                
-            cityContainerEl.appendChild(statusEl);
+    cityContainerEl.appendChild(statusEl);
             statusEl.appendChild(titleEL);
-        
+            // tempEl.appendChild(tempEl);
         }
-  
     }
     
   
@@ -104,4 +112,4 @@ async function displaycity (lat, lon, cityName){
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
 
-
+    
