@@ -88,14 +88,7 @@ async function displaycity (lat, lon, cityName){
             weatherEl.textContent=city[i].weather[0].main;
             console.log(city[i].weather[0].main);
 
-            // var tempEl= $('<p class="weatherEl"/>').appendTo('#city-container');
-            // tempEl.html=city[0].temp;
-
-            // var weatherEl= $('<p class="weatherEl"/>').appendTo('#city-container');
-            // weatherEl.html=city[0].weather[0];
-
-            // var uvEl= $('<p class="uvEl"/>').appendTo('#city-container');
-            // uvEl.html=city[0].uv;
+        
          
             statusEl.appendChild(titleEL);
             statusEl.appendChild(tempEl);
