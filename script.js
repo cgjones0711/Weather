@@ -85,8 +85,8 @@ async function displaycity (lat, lon, cityName){
             console.log(city[i].uvi);
 
             let weatherEl=document.createElement('span')
-            weatherEl.textContent=city[i].weather[0];
-            console.log(city[i].weather[0]);
+            weatherEl.textContent=city[i].weather[0].main;
+            console.log(city[i].weather[0].main);
 
             // var tempEl= $('<p class="weatherEl"/>').appendTo('#city-container');
             // tempEl.html=city[0].temp;
@@ -97,12 +97,12 @@ async function displaycity (lat, lon, cityName){
             // var uvEl= $('<p class="uvEl"/>').appendTo('#city-container');
             // uvEl.html=city[0].uv;
          
-
-            
-
-    cityContainerEl.appendChild(statusEl);
             statusEl.appendChild(titleEL);
-            // tempEl.appendChild(tempEl);
+            statusEl.appendChild(tempEl);
+            statusEl.appendChild(uvEl);
+            statusEl.appendChild(weatherEl)
+            cityContainerEl.appendChild(statusEl);
+            // titleEl.appendChild(tempEl);
         }
     }
     
