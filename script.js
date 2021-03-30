@@ -30,6 +30,7 @@ async function getCityLocation(city){
     .then (function (data){
         displaycity(data.city.coord.lat, data.city.coord.lon, data.city.name);
         
+        
     });
 }
 
@@ -42,8 +43,8 @@ async function displaycity (lat, lon, cityName){
     if (response.ok) {
       response.json()
       .then(function (data) {
-       noCity(data.daily, cityName, )
-     
+       noCity(data.daily, cityName )
+       console.log (data)
     });
     } else {
       alert('Error: ' + response.statusText);
@@ -52,6 +53,8 @@ async function displaycity (lat, lon, cityName){
 }
 
     let noCity = function (city, cityName) {
+        
+        
         if (city.length === 0) {
           cityContainerEl.textContent = 'No City found.';
           return;
@@ -69,31 +72,33 @@ async function displaycity (lat, lon, cityName){
             let month = date.getMonth() + 1;
             let day = date.getDate();
             let dateString = month + "/" + day;
+            titleEL.textContent = dateString;
+            console.log(dateString)
             
-                titleEL.textContent = dateString;
-                console.log()
+
+            let tempEl=document.createElement("span");
+            let forecast = new Forecast(weatherStatus.daily);
+           console.log(weatherStatus.daily)
+            let  degree = forecast.getTemp();
+            let uv = forecast.getUv();
+            let weather = forecast.getWeather();
+            let forString = degree + uv + weather;
+            tempEl.textContent = forString;
+            console.log (forString)
+            
+            
+
+
 
                 
             cityContainerEl.appendChild(statusEl);
             statusEl.appendChild(titleEL);
-            
+        
         }
   
     }
     
   
-// })
-// function appendData(data) {
-//     var mainContainer = document.getElementById("city-search");
-//     for (var i = 0; i < data.length; i++) {
-//       var div = document.createElement("div");
-//     div.data
-//       mainContainer.appendChild(div);
-//     }
-//   }
-// location = document.getElementById('city').value;
-// city.push(location);
-// localStorage.setItem(city)
 
 
 
